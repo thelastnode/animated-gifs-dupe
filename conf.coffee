@@ -1,7 +1,7 @@
 module.exports =
   port: process.env.PORT || 3000
   app_id: process.env.APP_ID
-  canvas_page: 'https://animated-gifs-dupes.herokuapp.com/'
+  canvas_page: 'http://apps.facebook.com/animatedgifsdupe'
   secret: process.env.SECRET
 
 module.exports.auth_url = "https://www.facebook.com/dialog/oauth?

@@ -14,7 +14,7 @@ base64_url_to_base64 = (str) ->
 base64_url_to_string = (str) -> base64_to_string(base64_url_to_base64(str))
 
 require_auth = (req, res, next) ->
-  parts = req.body.signed_request.split('.')
+  parts = req.body.signed_request?.split('.') || req.query.si
   sig = base64_url_to_base64(parts[0])
   data = JSON.parse(base64_url_to_string(parts[1]))
 
@@ -31,8 +31,14 @@ require_auth = (req, res, next) ->
   else
     return res.render('login')
 
+accept_auth = (req, res, next) ->
+  return next(req.query.error_description) if req.query.error == 'access_denied'
+
+  res.render('success')
+
 home_page = (req, res, next) ->
-  res.send "Woohoo! Hello #{req.fb_data.user_id}"
+  res.send "Woohoo! Hello #{req.fb_data.user_id}!"
 
 exports.registerOn = (app) ->
   app.post '/', require_auth, home_page
+  app.get '/', accept_auth

@@ -14,6 +14,10 @@ app.configure(function() {
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(express.cookieParser());
+  app.use(express.session({
+    secret: conf.session_secret,
+  }))
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });

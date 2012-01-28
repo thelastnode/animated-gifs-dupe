@@ -27,7 +27,7 @@ require_auth = (req, res, next) ->
       return res.send('Could not verify account')
 
     req.fb_data = data
-    return next();
+    return next()
   else
     return res.render('login')
 

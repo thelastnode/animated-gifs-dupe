@@ -3,7 +3,7 @@ conf = require('../conf')
 
 # base64 stuff from https://gist.github.com/661597
 
-base64_to_string = (str) -> new Buffer(str).toString('ascii')
+base64_to_string = (str) -> new Buffer(str, 'base64').toString('ascii')
 
 base64_url_to_base64 = (str) ->
   padding_needed = (4 - (str.length % 4))

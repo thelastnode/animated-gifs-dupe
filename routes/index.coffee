@@ -70,12 +70,17 @@ check = (req, res, next) ->
         models.Gif.findOne({
           hash: hash
         }, (err, gif) ->
+          if err
+            return res.send(JSON.stringify(
+              error: true
+              error_description: "Database error"
+            ))
           if not (gif?)
-            res.send(JSON.stringify(
+            return res.send(JSON.stringify(
               exists: false
             ))
           else
-            res.send(JSON.stringify(
+            return res.send(JSON.stringify(
               exists: true,
               urls: gif.links
             ))

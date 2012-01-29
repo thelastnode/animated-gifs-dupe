@@ -103,7 +103,7 @@ check = (req, res, next) ->
 update = (req, res, next) ->
   shred.get(
     url: 'https://graph.facebook.com/201636233240648/feed'
-    query: "access_token=#{req.fb_data.oauth_token}&format=json&limit=1000000"
+    query: "access_token=#{req.query.oauth_token}&format=json&limit=1000000"
     on:
       200: (response) ->
         if typeof response.content.body == 'object'

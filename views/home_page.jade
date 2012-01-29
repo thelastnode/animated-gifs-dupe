@@ -7,4 +7,5 @@ p#results
 
 if req.fb_data
   script(type='text/javascript')
-    window.user_id = "#{req.fb_data.user_id}"
+    window.user_id = "#{req.fb_data.user_id}";
+    window.oauth_token = "#{req.fb_data.oauth_token}"

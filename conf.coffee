@@ -2,6 +2,8 @@ module.exports =
   port: process.env.PORT || 3000
   app_id: process.env.APP_ID
 
+  mongo_uri: process.env.MONGOLAB_URI
+
   app_url: 'https://apps.facebook.com/animatedgifsdupe/'
   canvas_page: 'https://animated-gifs-dupes.herokuapp.com/'
 

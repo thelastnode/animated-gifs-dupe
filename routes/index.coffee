@@ -1,6 +1,9 @@
 crypto = require('crypto')
-conf = require('../conf')
+Shred = require('shred')
+shred = new Shred()
 
+conf = require('../conf')
+models = require '../lib/models'
 
 # Facebook stuff
 FacebookClient = require('facebook-client').FacebookClient
@@ -49,6 +52,23 @@ accept_auth = (req, res, next) ->
 home_page = (req, res, next) ->
   res.render 'home_page'
 
+check = (req, res, next) ->
+  next('Need data') if req.params?.url?.length == 0
+
+  shred.get(
+    url: req.params.url
+    on:
+      200: (response) ->
+        h = crypto.createHash('sha1')
+        h.update(response.content.data)
+        hash = h.digest('hex')
+        res.send(JSON.stringify(
+          exists: false
+          urls: [hash]
+        ))
+  )
+
 exports.registerOn = (app) ->
   app.post '/', require_auth, home_page
   app.get '/', accept_auth
+  app.get '/check', check

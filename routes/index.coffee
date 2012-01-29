@@ -100,24 +100,26 @@ check = (req, res, next) ->
         ))
   )
 
+handle_fb_result = (response) ->
+  200:
+    if typeof response.content.body == 'object'
+      r = response.content.body
+    else
+      r = JSON.parse(response.content.body)
+      console.log "Update success: #{r.data?.length}"
+  response: (response) ->
+    console.log 'Error updating'
+  request_error: (response) ->
+    console.log 'Error updating (request_error)'
+
 update = (req, res, next) ->
   shred.get(
     url: 'https://graph.facebook.com/201636233240648/feed'
     query:
       access_token: req.query.oauth_token
       format: 'json'
-      limit: 1000000
-    on:
-      200: (response) ->
-        if typeof response.content.body == 'object'
-          r = response.content.body
-        else
-          r = JSON.parse(response.content.body)
-          console.log "Update success: #{r.data?.length}"
-      response: (response) ->
-        console.log 'Error updating'
-      request_error: (response) ->
-        console.log 'Error updating (request_error)'
+      limit: 5000
+    on: handle_fb_result
   )
   res.send(JSON.stringify(
     error: true

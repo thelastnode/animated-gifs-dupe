@@ -1,6 +1,6 @@
 mongoose = require 'mongoose'
 Schema = mongoose.Schema
-ObjectId - Schema.ObjectId
+ObjectId = Schema.ObjectId
 
 Gif = new Schema(
   hash:

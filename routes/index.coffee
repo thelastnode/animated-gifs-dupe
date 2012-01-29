@@ -80,10 +80,6 @@ check = (req, res, next) ->
               urls: gif.links
             ))
         )
-        res.send(JSON.stringify(
-          exists: true
-          urls: [hash]
-        ))
       response: (response) ->
         res.send(JSON.stringify(
           error: true

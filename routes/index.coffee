@@ -138,6 +138,9 @@ handle_fb_result =
 
     console.log "Got data, adding #{r.data.length} gifs"
     r.data.map (x) ->
+      if x.comments.count > 0
+        x.comments.data.map (c) ->
+          add_gif(c.message)
       if x.link? or x.message?
         add_gif(x.link || x.message,
                 x.actions[0].link.replace('.com/', '.com/groups/'))

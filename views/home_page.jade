@@ -1,7 +1,7 @@
 script(type='text/javascript', src='/javascripts/submit.js')
 
 
-h1 Check for a duplicate GIF
+h1 Dupe Checker!
 p
   | This is for checking for duplicate GIFs on the
   a(href='https://www.facebook.com/groups/animatedgifs/', target='_BLANK') Animated GIFs Facebook group.
@@ -14,11 +14,16 @@ p.
   Also, if you feel like fixing those things, fork this on Github
   (disclaimer: it's reasonably messy and hack-ish)!
 
+label(for='url') URL of GIF:
 input(type='text')#url
 input(type='button', value='Check')#submit
 
 p#results
 ul#links
+
+p(style='margin-top: 30px')
+  | Hacked together by 
+  a(href='http://facebook.com/ankit.shankar', target='_BLANK') Ankit Shankar
 
 if req.fb_data
   script(type='text/javascript')

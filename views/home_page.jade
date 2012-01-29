@@ -5,5 +5,6 @@ input(type='button', value='Check')#submit
 
 p#results
 
-script(type='text/javascript')
-  window.user_id = "#{req.fb_data?.user_id}"
+if req.fb_data
+  script(type='text/javascript')
+    window.user_id = "#{req.fb_data.user_id}"

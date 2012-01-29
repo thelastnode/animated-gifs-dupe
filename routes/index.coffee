@@ -66,6 +66,20 @@ check = (req, res, next) ->
         h = crypto.createHash('sha1')
         h.update(response.content.data)
         hash = h.digest('hex')
+
+        models.Gif.findOne({
+          hash: hash
+        }, (err, gif) ->
+          if not (gif?)
+            res.send(JSON.stringify(
+              exists: false
+            ))
+          else
+            res.send(JSON.stringify(
+              exists: true,
+              urls: gif.links
+            ))
+        )
         res.send(JSON.stringify(
           exists: true
           urls: [hash]

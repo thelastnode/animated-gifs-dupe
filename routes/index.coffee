@@ -115,7 +115,7 @@ update = (req, res, next) ->
   shred.get(
     url: 'https://graph.facebook.com/201636233240648/feed'
     query:
-      limit: 2000
+      limit: 100
       access_token: req.query.oauth_token
     on: handle_fb_result
   )

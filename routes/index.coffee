@@ -101,7 +101,7 @@ check = (req, res, next) ->
         ))
   )
 
-gif_regex = /http:\/\/.*\.gif/
+gif_regex = /https?:\/\/.*\.gif/
 
 add_gif = (gif_url, post_url) ->
   gif_url = gif_url.match(gif_regex)[0] if gif_url.match(gif_regex)

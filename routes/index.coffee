@@ -60,10 +60,10 @@ check = (req, res, next) ->
 
   console.log "Trying to get: #{req.query.url}"
   shred.get(
-    url: req.params.url
+    url: req.query.url
     on:
       200: (response) ->
-        console.log "Got: #{req.params.url}"
+        console.log "Got: #{req.query.url}"
         h = crypto.createHash('sha1')
         h.update(response.content.data)
         hash = h.digest('hex')

@@ -1,6 +1,16 @@
 crypto = require('crypto')
 conf = require('../conf')
 
+
+# Facebook stuff
+FacebookClient = require('facebook-client').FacebookClient
+fb = new FacebookClient(conf.app_id, conf.secret)
+
+graph_call = (req, path, cb) ->
+  fb.getSessionByAccessToken(req.fb_data.oauth_token)( (session) ->
+    session.graphCall(path, {})(cb)
+  )
+
 # base64 stuff from https://gist.github.com/661597
 
 base64_to_string = (str) -> new Buffer(str, 'base64').toString('ascii')
@@ -37,7 +47,10 @@ accept_auth = (req, res, next) ->
   res.render('success')
 
 home_page = (req, res, next) ->
-  res.send "Woohoo! Hello #{req.fb_data.user_id}!"
+  graph_call('/201636233240648/feed', (result) ->
+    res.send "First post: #{result.data[0].message}, link: #{result.data[0].link"
+    # res.send "Woohoo! Hello #{req.fb_data.user_id}!"
+  )
 
 exports.registerOn = (app) ->
   app.post '/', require_auth, home_page

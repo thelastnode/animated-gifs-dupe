@@ -125,4 +125,4 @@ update = (req, res, next) ->
 exports.registerOn = (app) ->
   app.post '/', require_auth, home_page
   app.get '/', accept_auth
-  app.get '/check', require_auth, check
+  app.get '/check', check

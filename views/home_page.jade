@@ -4,7 +4,15 @@ script(type='text/javascript', src='/javascripts/submit.js')
 h1 Check for a duplicate GIF
 p
   | This is for checking for duplicate GIFs on the
-  a(href='https://www.facebook.com/groups/animatedgifs/', target='_BLANK') Animated GIFs Facebook group
+  a(href='https://www.facebook.com/groups/animatedgifs/', target='_BLANK') Animated GIFs Facebook group.
+  |  It uses the hash of your GIF, so even if someone submitted from a
+  | different link, it should be able to find it.
+
+p.
+  Right now, it only works on posts (no comments), and if the it's a
+  "link" type object in Facebook's Graph API, Still, give it a try!
+  Also, if you feel like fixing those things, fork this on Github
+  (disclaimer: it's reasonably messy and hack-ish)!
 
 input(type='text')#url
 input(type='button', value='Check')#submit

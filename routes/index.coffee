@@ -27,7 +27,7 @@ base64_url_to_base64 = (str) ->
 base64_url_to_string = (str) -> base64_to_string(base64_url_to_base64(str))
 
 require_auth = (req, res, next) ->
-  parts = req.body.signed_request?.split('.') || ['', '']
+  parts = req.body.signed_request?.split('.')
   sig = base64_url_to_base64(parts[0])
   data = JSON.parse(base64_url_to_string(parts[1]))
 

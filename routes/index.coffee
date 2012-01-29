@@ -1,4 +1,5 @@
 crypto = require('crypto')
+url = require('url')
 Shred = require('shred')
 shred = new Shred()
 
@@ -100,12 +101,50 @@ check = (req, res, next) ->
         ))
   )
 
+add_gif = (gif_url, post_url) ->
+  shred.get(
+    url: gif_url
+    on:
+      200: (response) ->
+        h = crypto.createHash('sha1')
+        h.update(response.content.data)
+        hash = h.digest('hex')
+
+        models.Gif.findOne({
+          hash: hash
+        }, (err, gif) ->
+          if err
+            console.error 'Database error'
+          if not gif
+            new models.Gif(
+              hash: hash
+              links: [post_url]
+            ).save()
+          else
+            if gif.links.indexOf(post_url) < 0
+              gif.links.push(post_url)
+              gif.save()
+        )
+  )
+
 handle_fb_result =
   200: (response) ->
     r = response.content.body
     if typeof r != 'object'
       r = JSON.parse(r)
-    console.log "Update success: #{r.data?.length} doodads"
+
+    console.log 'Got data, adding #{r.data.length} gifs'
+    r.data.map (x) ->
+      if x.link?
+        add_gif(x.link, x.actions.like.replace('.com/', '.com/groups/'))
+
+    if r.data.length > 0
+      console.log 'More to update, updating'
+      shred.get(
+        url: 'https://graph.facebook.com/201636233240648/feed'
+        query: url.parse(r.paging.next).query
+        on: handle_fb_result
+      )
   response: (response) ->
     console.log 'Error updating'
   request_error: (response) ->

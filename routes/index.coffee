@@ -75,6 +75,11 @@ check = (req, res, next) ->
           error: true
           error_description: "Could not get #{req.query.url}"
         ))
+      request_error: (response) ->
+        res.send(JSON.stringify(
+          error: true
+          error_description: "Could not get #{req.query.url}"
+        ))
   )
 
 exports.registerOn = (app) ->

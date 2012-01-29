@@ -1,5 +1,11 @@
 script(type='text/javascript', src='/javascripts/submit.js')
 
+
+h1 Check for a duplicate GIF
+p
+  | This is for checking for duplicate GIFs on the
+  a(href='https://www.facebook.com/groups/animatedgifs/') Animated GIFs Facebook group
+
 input(type='text')#url
 input(type='button', value='Check')#submit
 
@@ -10,3 +16,9 @@ if req.fb_data
   script(type='text/javascript')
     window.user_id = "#{req.fb_data.user_id}";
     window.oauth_token = "#{req.fb_data.oauth_token}"
+
+    $('#url').keypress(function(e) {
+      if (e.keyCode == 13) {
+         $('#links').click();
+      }
+    });

@@ -110,17 +110,16 @@ update = (req, res, next) ->
           r = response.content.body
         else
           r = JSON.parse(response.content.body)
-
-        res.send(JSON.stringify(
-          error: true
-          error_description: "Update success: #{r.data?.length}"
-        ))
+          console.log "Update success: #{r.data?.length}"
       response: (response) ->
-        res.send(JSON.stringify(
-          error: true
-          error_description: 'Error updating'
-        ))
+        console.log 'Error updating'
+      request_error: (response) ->
+        console.log 'Error updating (request_error)'
   )
+  res.send(JSON.stringify(
+    error: true
+    error_description: 'Attempting update'
+  ))
 
 exports.registerOn = (app) ->
   app.post '/', require_auth, home_page

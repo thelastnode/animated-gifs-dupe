@@ -136,7 +136,7 @@ handle_fb_result =
     console.log 'Got data, adding #{r.data.length} gifs'
     r.data.map (x) ->
       if x.link?
-        add_gif(x.link, x.actions.like.replace('.com/', '.com/groups/'))
+        add_gif(x.link, x.actions[0].link.replace('.com/', '.com/groups/'))
 
     if r.data.length > 0
       console.log 'More to update, updating'

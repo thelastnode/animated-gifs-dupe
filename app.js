@@ -7,7 +7,7 @@ var conf = require('./conf');
 
 var app = module.exports = express.createServer();
 
-// require('mongoose').connect(conf.mongo_uri);
+require('mongoose').connect(conf.mongo_uri);
 
 // Configuration
 

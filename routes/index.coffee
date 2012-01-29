@@ -55,21 +55,25 @@ home_page = (req, res, next) ->
 check = (req, res, next) ->
   if not req.query?.url?.length > 0
     return res.send(JSON.stringify(
-      exists: false
+      error: true
+      error_description: 'Need to specify a URL!'
     ))
 
-  console.log "Trying to get: #{req.query.url}"
   shred.get(
     url: req.query.url
     on:
       200: (response) ->
-        console.log "Got: #{req.query.url}"
         h = crypto.createHash('sha1')
         h.update(response.content.data)
         hash = h.digest('hex')
         res.send(JSON.stringify(
           exists: true
           urls: [hash]
+        ))
+      response: (response) ->
+        res.send(JSON.stringify(
+          error: true
+          error_description: "Could not get #{req.query.url}"
         ))
   )
 

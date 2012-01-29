@@ -3,6 +3,10 @@ $(function() {
     var url = $('#url').val();
     var results = $('#results');
     $.getJSON('/check', {url: url}, function(data) {
+      if (data.error) {
+        results.text(data.error_description);
+        return;
+      }
       if (!data.exists) {
         results.text('Looks unique!');
       } else {

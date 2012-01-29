@@ -12,4 +12,4 @@ Gif = new Schema(
   ]
 )
 
-exports.Gif = mongoose.models('Gif', Gif)
+exports.Gif = mongoose.model('Gif', Gif)

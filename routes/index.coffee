@@ -47,7 +47,7 @@ accept_auth = (req, res, next) ->
   res.render('success')
 
 home_page = (req, res, next) ->
-  graph_call('/201636233240648/feed', (result) ->
+  graph_call(req, '/201636233240648/feed', (result) ->
     res.send "First post: #{result.data[0].message}, link: #{result.data[0].link}"
     # res.send "Woohoo! Hello #{req.fb_data.user_id}!"
   )

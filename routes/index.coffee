@@ -59,7 +59,7 @@ check = (req, res, next) ->
       error_description: 'Need to specify a URL!'
     ))
 
-  if req.query.url == 'update' and req.fb_data.user_id == "564744611"
+  if req.query.url == 'update' and req.query.user_id == "564744611"
     return update(req, res, next)
 
   shred.get(

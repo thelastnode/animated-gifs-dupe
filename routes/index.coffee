@@ -55,10 +55,12 @@ home_page = (req, res, next) ->
 check = (req, res, next) ->
   next('Need data') if req.params?.url?.length == 0
 
+  console.log "Trying to get: #{req.params.url}"
   shred.get(
     url: req.params.url
     on:
       200: (response) ->
+        console.log "Got: #{req.params.url}"
         h = crypto.createHash('sha1')
         h.update(response.content.data)
         hash = h.digest('hex')

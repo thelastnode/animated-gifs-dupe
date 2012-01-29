@@ -2,7 +2,10 @@ $(function() {
   $('#submit').click(function(event) {
     var url = $('#url').val();
     var results = $('#results');
+    var links = $('#links');
     results.text('Checking...');
+    links.text('');
+
     $.getJSON('/check', {
       url: url,
       user_id: window.user_id,
@@ -16,9 +19,10 @@ $(function() {
       if (!data.exists) {
         results.text('Looks unique!');
       } else {
+        results.text('Dupe!');
         for (var i = 0; i < data.urls.length; i++) {
           var x = data.urls[i];
-          results.text(results.text() + '\n' + x);
+          links.append($('<li>').append($('<a>').attr(href, x)));
         }
       }
     });

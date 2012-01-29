@@ -133,7 +133,7 @@ handle_fb_result =
     if typeof r != 'object'
       r = JSON.parse(r)
 
-    console.log 'Got data, adding #{r.data.length} gifs'
+    console.log "Got data, adding #{r.data.length} gifs"
     r.data.map (x) ->
       if x.link?
         add_gif(x.link, x.actions[0].link.replace('.com/', '.com/groups/'))

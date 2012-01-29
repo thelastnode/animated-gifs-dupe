@@ -53,9 +53,12 @@ home_page = (req, res, next) ->
   res.render 'home_page'
 
 check = (req, res, next) ->
-  next('Need data') if req.params?.url?.length == 0
+  if not req.query?.url?.length > 0
+    return res.send(JSON.stringify(
+      exists: false
+    ))
 
-  console.log "Trying to get: #{req.params.url}"
+  console.log "Trying to get: #{req.query.url}"
   shred.get(
     url: req.params.url
     on:
@@ -65,7 +68,7 @@ check = (req, res, next) ->
         h.update(response.content.data)
         hash = h.digest('hex')
         res.send(JSON.stringify(
-          exists: false
+          exists: true
           urls: [hash]
         ))
   )

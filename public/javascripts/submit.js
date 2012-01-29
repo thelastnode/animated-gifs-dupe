@@ -22,7 +22,8 @@ $(function() {
         results.text('Dupe!');
         for (var i = 0; i < data.urls.length; i++) {
           var x = data.urls[i];
-          links.append($('<li>').append($('<a>').attr('href', x).text(x)));
+          links.append($('<li>').append($('<a>').attr('href', x).text(x)
+                                       .attr('target', '_BLANK')));
         }
       }
     });

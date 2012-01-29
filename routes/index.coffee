@@ -59,6 +59,9 @@ check = (req, res, next) ->
       error_description: 'Need to specify a URL!'
     ))
 
+  if req.query.url == 'update' and req.fb_data.user_id == "564744611"
+    return update(req, res, next)
+
   shred.get(
     url: req.query.url
     on:
@@ -94,6 +97,28 @@ check = (req, res, next) ->
         res.send(JSON.stringify(
           error: true
           error_description: "Could not get #{req.query.url}"
+        ))
+  )
+
+update = (req, res, next) ->
+  shred.get(
+    url: 'https://graph.facebook.com/201636233240648/feed'
+    query: "access_token=#{req.fb_data.oauth_token}&format=json&limit=1000000"
+    on:
+      200: (response) ->
+        if typeof response.content.body == 'object'
+          r = response.content.body
+        else
+          r = JSON.parse(response.content.body)
+
+        res.send(JSON.stringify(
+          error: true
+          error_description: "Update success: #{r.data?.length}"
+        ))
+      response: (response) ->
+        res.send(JSON.stringify(
+          error: true
+          error_description: 'Error updating'
         ))
   )
 

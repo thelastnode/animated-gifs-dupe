@@ -7,7 +7,7 @@
     , "jade": ">= 0.0.1"
     , "coffee-script": "1.x"
     , "facebook-client": "1.x"
-    , "mongoose": "2.x"
+    , "mongoose": "2.5.x"
     , "shred": "0.x"
   }
 }
